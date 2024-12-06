@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: adeboose <adeboose@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/16 12:33:48 by adeboose          #+#    #+#             */
-/*   Updated: 2024/11/16 15:56:48 by adeboose         ###   ########.fr       */
-/*                                                                            */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   server.c										   :+:	  :+:	:+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: adeboose <adeboose@student.42.fr>		  +#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2024/11/16 12:33:48 by adeboose		  #+#	#+#			 */
+/*   Updated: 2024/12/06 15:00:37 by adeboose		 ###   ########.fr	   */
+/*																			*/
 /* ************************************************************************** */
 
 #include "minitalk.h"
@@ -20,14 +20,15 @@ static void	reset_state(t_signal_state *state)
 	state->current_char = 0;
 }
 
-static void	handle_character(t_signal_state *state, char *line, int *line_index)
+static void	handle_character(t_signal_state *state, char *line
+			, int *line_index)
 {
 	if (state->current_char == '\0' || state->current_char == '\n')
-    {
-        write(1, line, *line_index);
-        write(1, "\n", 1);
-        *line_index = 0;
-    }
+	{
+		write(1, line, *line_index);
+		write(1, "\n", 1);
+		*line_index = 0;
+	}
 	else
 	{
 		if (*line_index < MAX_LINE_LENGTH - 1)
@@ -62,6 +63,7 @@ void	handler(int sig, siginfo_t *info, void *context)
 		handle_character(&state, line, &line_index);
 		reset_state(&state);
 	}
+	kill(info->si_pid, SIGUSR1);
 }
 
 int	main(void)
@@ -71,13 +73,14 @@ int	main(void)
 	sa.sa_flags = SA_SIGINFO;
 	sa.sa_sigaction = handler;
 	sigemptyset(&sa.sa_mask);
-	if (sigaction(SIGUSR1, &sa, NULL) == -1 || sigaction(SIGUSR2, &sa, NULL) == -1)
+	if (sigaction(SIGUSR1, &sa, NULL) == -1
+		|| sigaction(SIGUSR2, &sa, NULL) == -1)
 	{
 		ft_printf("Erreur de sigaction\n");
 		return (1);
 	}
 	ft_printf("Serveur prêt, PID: %d\n", getpid());
-	while (1)
+	while (42)
 		pause();
 	return (0);
 }

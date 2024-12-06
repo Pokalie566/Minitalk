@@ -1,4 +1,3 @@
-
 #include "minitalk.h"
 
 #define MAX_LINE_LENGTH 2147483647
@@ -9,7 +8,8 @@ static void	reset_state(t_signal_state *state)
 	state->current_char = 0;
 }
 
-static void	handle_character(t_signal_state *state, char *line, int *line_index)
+static void	handle_character(t_signal_state *state, char *line
+			, int *line_index)
 {
 	if (state->current_char == '\0' || state->current_char == '\n')
 	{
@@ -38,9 +38,9 @@ static void	update_character(t_signal_state *state, int sig)
 
 void	handler(int sig, siginfo_t *info, void *context)
 {
-	static t_signal_state state = {0, 0};
-	static char line[MAX_LINE_LENGTH];
-	static int line_index = 0;
+	static t_signal_state	state = {0, 0};
+	static char				line[MAX_LINE_LENGTH];
+	static int				line_index = 0;
 
 	if (!info)
 		return ;
@@ -56,18 +56,19 @@ void	handler(int sig, siginfo_t *info, void *context)
 
 int	main(void)
 {
-	struct sigaction sa;
+	struct sigaction	sa;
 
 	sa.sa_flags = SA_SIGINFO;
 	sa.sa_sigaction = handler;
 	sigemptyset(&sa.sa_mask);
-	if (sigaction(SIGUSR1, &sa, NULL) == -1 || sigaction(SIGUSR2, &sa, NULL) == -1)
+	if (sigaction(SIGUSR1, &sa, NULL) == -1
+		|| sigaction(SIGUSR2, &sa, NULL) == -1)
 	{
 		ft_printf("Erreur de sigaction\n");
 		return (1);
 	}
 	ft_printf("Serveur prêt, PID: %d\n", getpid());
-	while (1)
+	while (42)
 		pause();
 	return (0);
 }

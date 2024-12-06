@@ -7,9 +7,9 @@ void	onsig(__attribute__((unused)) int ac)
 	g_response = true;
 }
 
-void send_char(int pid, char c)
+void	send_char(int pid, char c)
 {
-	int i;
+	int	i;
 
 	i = 7;
 	while (i >= 0)
@@ -20,14 +20,12 @@ void send_char(int pid, char c)
 			kill(pid, SIGUSR1);
 		while (!g_response)
 			usleep(25);
-		if (g_response)
-			ft_printf("Susses\n");
 		g_response = false;
 		i--;
 	}
 }
 
-void send_message(int pid, const char *msg)
+void	send_message(int pid, const char *msg)
 {
 	while (*msg)
 	{
@@ -35,11 +33,12 @@ void send_message(int pid, const char *msg)
 		msg++;
 	}
 	send_char(pid, '\0');
+	ft_printf("Susses\n");
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	int server_pid;
+	int	server_pid;
 
 	if (argc != 3)
 	{
@@ -56,4 +55,3 @@ int main(int argc, char **argv)
 	send_message(server_pid, argv[2]);
 	return (0);
 }
-

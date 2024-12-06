@@ -6,7 +6,7 @@
 /*   By: adeboose <adeboose@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 10:40:15 by adeboose          #+#    #+#             */
-/*   Updated: 2024/11/16 15:56:22 by adeboose         ###   ########.fr       */
+/*   Updated: 2024/12/06 15:12:16 by adeboose         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void	send_char(int pid, char c)
 		else
 			kill(pid, SIGUSR1);
 		while (!g_response)
-    		usleep(25);
-        g_response = false;
+			usleep(25);
+		g_response = false;
 		i--;
 	}
 }
@@ -62,6 +62,7 @@ int	main(int argc, char **argv)
 		ft_printf("Invalid PID: %d\n", server_pid);
 		return (1);
 	}
+	signal(SIGUSR1, onsig);
 	send_message(server_pid, argv[2]);
 	return (0);
 }

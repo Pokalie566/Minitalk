@@ -45,7 +45,7 @@ void	send_message(int pid, const char *msg)
 		msg++;
 	}
 	send_char(pid, '\0');
-	ft_printf("Susses\n");
+	ft_printf("Success\n");
 }
 
 int	main(int argc, char **argv)

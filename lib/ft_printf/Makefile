@@ -14,7 +14,12 @@ CFLAGS = -Wall -Werror -Wextra
 CC = cc
 NAME = libftprintf.a
 
-SRC = ft_printf.c \
+INCS = -I ./includes
+
+SRC_PATH = src/
+OBJ_PATH = obj/
+
+SRCS = ft_printf.c \
       ft_formats.c \
       ft_printchar.c \
       ft_printstr.c \
@@ -30,18 +35,20 @@ SRC = ft_printf.c \
       ft_calloc.c \
       ft_memset.c \
 
-OBJ = $(SRC:%.c=%.o)
+OBJS := $(addprefix $(OBJ_PATH), $(SRCS:%.c=%.o))
+SRCS := $(addprefix $(SRC_PATH), $(SRCS))
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	ar rcs $@ $^
+$(NAME): $(OBJS)
+	ar -r $@ $?
 
-$(OBJ_DIR)/%.o: %.c
-	$(CC) -c $(CFLAGS) $< -o $@
+$(OBJ_PATH)%.o: $(SRC_PATH)%.c
+	mkdir -p $(OBJ_PATH)
+	$(CC) $(CFLAGS) $(INCS) -c $< -o $@
 
 clean:
-	rm -f $(OBJ)
+	rm -rf $(OBJ_PATH)
 
 fclean: clean
 	rm -f $(NAME)

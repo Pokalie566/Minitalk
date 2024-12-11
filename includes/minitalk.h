@@ -17,9 +17,11 @@
 # include "ft_printf.h"
 # include <signal.h>
 # include <unistd.h>
-#include <stdbool.h>
+# include <stdbool.h>
 
-# define BUFFER_SIZE 10
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 10
+# endif
 
 typedef struct s_signal_state
 {

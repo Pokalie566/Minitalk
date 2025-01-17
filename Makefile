@@ -27,17 +27,17 @@ CLIENT = client
 SERVER_Bonus = server_bonus
 CLIENT_Bonus = client_bonus
 
-SV_SRCS = $(SRC_PATH)server.c
+SV_SRCS = $(SRC_PATH)server.c $(SRC_PATH)dynamic_str.c
 CLIENT_SRCS = $(SRC_PATH)client.c
 
-SV_OBJS = $(OBJ_PATH)server.o
+SV_OBJS = $(OBJ_PATH)server.o $(OBJ_PATH)dynamic_str.o
 CLIENT_OBJS = $(OBJ_PATH)client.o
 
 # Bonus Sources
-SV_SRCS_Bonus = $(SRC_PATH)server_bonus.c
+SV_SRCS_Bonus = $(SRC_PATH)server_bonus.c $(SRC_PATH)dynamic_str.c
 CLIENT_SRCS_Bonus = $(SRC_PATH)client_bonus.c
 
-SV_OBJS_Bonus = $(OBJ_PATH)server_bonus.o
+SV_OBJS_Bonus = $(OBJ_PATH)server_bonus.o $(OBJ_PATH)dynamic_str.o
 CLIENT_OBJS_Bonus = $(OBJ_PATH)client_bonus.o
 
 # Default target

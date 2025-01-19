@@ -6,7 +6,7 @@
 /*   By: adeboose <adeboose@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 10:39:33 by adeboose          #+#    #+#             */
-/*   Updated: 2025/01/17 06:23:18 by adeboose         ###   ########.fr       */
+/*   Updated: 2025/01/19 19:08:01 by adeboose         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,6 @@
 # include <signal.h>
 # include <unistd.h>
 # include <stdbool.h>
-
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 10
-# endif
 
 typedef struct s_signal_state
 {

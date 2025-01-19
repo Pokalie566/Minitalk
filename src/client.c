@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: adeboose <adeboose@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/16 10:40:15 by adeboose          #+#    #+#             */
-/*   Updated: 2025/01/17 06:36:51 by adeboose         ###   ########.fr       */
+/*   Created: 2024/12/11 14:53:38 by adeboose          #+#    #+#             */
+/*   Updated: 2025/01/19 20:15:21 by adeboose         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	onsig(__attribute__((unused)) int ac)
 void	send_char(int pid, char c)
 {
 	int	i;
+	int	timer;
 
 	i = 7;
 	while (i >= 0)
@@ -30,8 +31,17 @@ void	send_char(int pid, char c)
 			kill(pid, SIGUSR2);
 		else
 			kill(pid, SIGUSR1);
-		while (!g_response)
-			usleep(25);
+		timer = 0;
+		while (!g_response && timer <= 4200)
+		{
+			usleep(42);
+			timer++;
+		}
+		if (timer >= 4200)
+		{
+			ft_printf("Server : %d\nNever gave a response\n", pid);
+			exit (1);
+		}
 		g_response = false;
 		i--;
 	}
@@ -59,7 +69,7 @@ int	main(int argc, char **argv)
 	server_pid = ft_atoi(argv[1]);
 	if (server_pid <= 0)
 	{
-		ft_printf("Invalid PID: %d\n", server_pid);
+		ft_printf("PID invalide: %d\n", server_pid);
 		return (1);
 	}
 	signal(SIGUSR1, onsig);

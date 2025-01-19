@@ -6,7 +6,7 @@
 /*   By: adeboose <adeboose@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 06:40:14 by adeboose          #+#    #+#             */
-/*   Updated: 2025/01/17 06:40:19 by adeboose         ###   ########.fr       */
+/*   Updated: 2025/01/19 19:29:06 by adeboose         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	reset_state(t_signal_state *state)
 static void	handle_character(t_signal_state *state, char **line,
 		int *line_index)
 {
-	if (state->current_char == '\0' || state->current_char == '\n')
+	if (state->current_char == '\0')
 	{
 		write(1, *line, *line_index);
 		write(1, "\n", 1);
@@ -77,7 +77,7 @@ int	main(void)
 		return (1);
 	}
 	ft_printf("Serveur prêt, PID: %d\n", getpid());
-	while (1)
+	while (42)
 		pause();
 	return (0);
 }
